@@ -35,6 +35,8 @@ class FA : Graphvizable {
             .replace('"'.toString(), """\"""")
 
         val trs = allNode.flatMap { node -> node.transitionList.map { node to it } }
+            .sortedBy { it.second.to.name.toInt() }
+            .sortedBy { it.first.name.toInt() }
             .joinToString("\n") { (a, tr) ->
                 """    ${a.name} -> ${tr.to.name} [label="${tr.key.escape()}"]"""
             }
