@@ -61,14 +61,15 @@ class RegexTransform(val re: String) {
                 lastIsText = bracketConcatStack.pop()
                 if (lastIsText) pushSymbol(Symbol.Concat)
             }
-            Symbol.Star, Symbol.Plus -> {
-                output.push(symbol)
-            }
 
             else -> {
-                while (stack.isNotEmpty() && stack.peek().priority >= symbol.priority)
-                    output.push(stack.pop())
-                stack.push(symbol)
+                if (symbol.operatorCount < 2)
+                    output.push(symbol)
+                else {
+                    while (stack.isNotEmpty() && stack.peek().priority >= symbol.priority)
+                        output.push(stack.pop())
+                    stack.push(symbol)
+                }
             }
         }
     }
