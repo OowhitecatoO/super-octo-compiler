@@ -3,7 +3,7 @@ package io.github.oowhitecatoo.superoctocompiler.re
 import io.github.oowhitecatoo.superoctocompiler.fa.*
 import java.util.*
 
-fun nfa2dfa(re: String) {
+fun regex2dfa(re: String) {
     val nfa = str2NFA(re)
 
 }

@@ -10,9 +10,9 @@ object NullString : TransitionToken() {
     override fun toString(): String = "λ"
 }
 
-data class TextTrans(val chars: Set<Char>) : TransitionToken() {
-    constructor(vararg chars: Char) : this(chars.toSet())
+data class TextTrans(val char: Char) : TransitionToken() {
+//    constructor(char: Char) : this(chars.toSet())
 
-    override fun toString(): String = chars.joinToString(", ")
+    override fun toString(): String = char.toString()
 }
 

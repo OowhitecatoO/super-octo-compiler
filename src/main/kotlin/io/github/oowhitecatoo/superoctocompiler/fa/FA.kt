@@ -26,7 +26,7 @@ class FA : Graphvizable {
             allNode += next
             toRename -= next
 
-            next.name = "${n++}"
+            if (next.name.isEmpty()) next.name = "${n++}"
             toRename += next.transitionList.map(Transition::to)
                 .filter { node -> node !in allNode }
         }
