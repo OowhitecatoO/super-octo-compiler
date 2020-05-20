@@ -35,16 +35,16 @@ class FA : Graphvizable {
             .replace('"'.toString(), """\"""")
 
         val trs = allNode.flatMap { node -> node.transitionList.map { node to it } }
-            .sortedBy { it.second.to.name.toInt() }
-            .sortedBy { it.first.name.toInt() }
+            .sortedBy { it.second.to.name.toIntOrNull() }
+            .sortedBy { it.first.name.toIntOrNull() }
             .joinToString("\n") { (a, tr) ->
-                """    ${a.name} -> ${tr.to.name} [label="${tr.key.escape()}"]"""
+                """    "${a.name}" -> "${tr.to.name}" [label="${tr.key.escape()}"]"""
             }
 
-        val finalNodes = allNode.filter { it.isFinal }.joinToString(", ") { it.name }
+        val finalNodes = allNode.filter { it.isFinal }.joinToString(", ") { '"' + it.name + '"' }
 
         val nodeLevel = allNode.reversed().joinToString("\n") {
-            """    ${it.name} [label=<<FONT point-size="25">\N</FONT><BR/><FONT color="blue">${it.level}</FONT>>]"""
+            """    "${it.name}" [label=<<FONT point-size="25">\N</FONT><BR/><FONT color="blue">${it.level}</FONT>>]"""
         }
 
         return """```graphviz
@@ -59,6 +59,7 @@ $trs
 $nodeLevel
     $finalNodes [shape=doublecircle ]
 }
-```"""
+```
+"""
     }
 }

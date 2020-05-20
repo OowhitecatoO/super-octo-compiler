@@ -7,7 +7,7 @@ fun main(args: Array<String>) {
     if (args.isEmpty()) return println("show help")
     when (args[0]) {
         "nfa2dfa" -> {
-            regex2dfa("a(bc|de)e*")
+            regex2dfa("ab*")
 //            nfa2dfa(args[1])
         }
     }

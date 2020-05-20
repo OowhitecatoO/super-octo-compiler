@@ -1,11 +1,17 @@
 package io.github.oowhitecatoo.superoctocompiler.re
 
+import io.github.oowhitecatoo.superoctocompiler.copyToClip
 import io.github.oowhitecatoo.superoctocompiler.fa.*
 import java.util.*
 
 fun regex2dfa(re: String) {
-    val nfa = str2NFA(re)
 
+    buildString {
+        val nfa = str2NFA(re)
+        append(nfa.toGraphviz())
+        val dfa = nfa2dfa(nfa)
+        append(dfa.toGraphviz())
+    }.copyToClip()
 }
 
 fun str2NFA(re: String): FA {
@@ -19,9 +25,10 @@ fun str2NFA(re: String): FA {
     val nfa = postfix2NFA(postfix)
 
     println()
-    val output = nfa.toGraphviz()
-//        .also { it.copyToClip() } // Windows OS only, TODO linux copyToClip
-    println(output)
+//    val output = nfa.toGraphviz()
+//        .also { toCopy += it }
+////        .also { it.copyToClip() } // Windows OS only, TODO linux copyToClip
+//    println(output)
 
     return nfa
 
