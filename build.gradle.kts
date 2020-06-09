@@ -21,6 +21,7 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
+    implementation("com.xenomachina:kotlin-argparser:2.0.7")
     testImplementation("junit", "junit", "4.12")
 }
 
@@ -34,7 +35,7 @@ tasks {
     compileTestKotlin {
         kotlinOptions.jvmTarget = "1.8"
     }
-}
-tasks.withType<ShadowJar> {
-    archiveClassifier.set("")
+    shadowJar {
+        archiveClassifier.set("")
+    }
 }
