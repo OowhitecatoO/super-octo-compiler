@@ -1,7 +1,5 @@
 package io.github.oowhitecatoo.superoctocompiler.re
 
-import io.github.oowhitecatoo.superoctocompiler.fa.Node
-
 sealed class SplitRegexToken(val priority: Int)
 
 sealed class Symbol(val key: String?, val operatorCount: Int, priority: Int) : SplitRegexToken(priority) {

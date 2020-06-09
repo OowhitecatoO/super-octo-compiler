@@ -39,6 +39,10 @@ fun nfa2dfa(fa: FA): FA {
     return FA(start)
 }
 
+//fun dfaOptimization(dfa: FA): FA {
+//
+//}
+
 private data class NodeSet(
     val set: LinkedHashSet<Node>
 ) {

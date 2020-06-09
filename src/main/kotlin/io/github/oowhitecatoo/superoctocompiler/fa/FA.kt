@@ -12,7 +12,7 @@ class FA : Graphvizable {
     lateinit var nowStatus: Node
     var isEnd = false
 
-    override fun toGraphviz(): String {
+    override fun toGraphviz(title: String, forceRenameNode: Boolean): String {
         // rename node with number
 
         var n = 1
@@ -26,7 +26,8 @@ class FA : Graphvizable {
             allNode += next
             toRename -= next
 
-            if (next.name.isEmpty()) next.name = "${n++}"
+            if (next.name.isEmpty() || forceRenameNode)
+                next.name = "${n++}"
             toRename += next.transitionList.map(Transition::to)
                 .filter { node -> node !in allNode }
         }
@@ -51,9 +52,13 @@ class FA : Graphvizable {
 digraph {
     rankdir=LR;
     node [shape=circle]
+    
+    label="$title"    
+    labelloc="t"
+    fontsize=30
 
     s [color=white, label=""]
-    s -> 1
+    s -> "${startNode.name}"
 $trs
 
 $nodeLevel

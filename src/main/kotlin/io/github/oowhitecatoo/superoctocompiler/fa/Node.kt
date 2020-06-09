@@ -1,7 +1,5 @@
 package io.github.oowhitecatoo.superoctocompiler.fa
 
-import io.github.oowhitecatoo.superoctocompiler.graphviz.Graphvizable
-
 class NFAMergeNode(val head: Node, val tail: Node)
 
 infix fun Node.with(token: TransitionToken) = this.toNFAMergeNode() to token
@@ -22,7 +20,7 @@ class Node(
     val transitionList: MutableList<Transition> = mutableListOf(),
     var name: String = "",
     var isFinal: Boolean = false
-){
+) {
     operator fun plusAssign(transition: Transition) {
         transitionList += transition
     }

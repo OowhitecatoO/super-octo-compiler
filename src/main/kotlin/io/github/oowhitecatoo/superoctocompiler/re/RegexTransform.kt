@@ -8,9 +8,10 @@ fun regex2dfa(re: String) {
 
     buildString {
         val nfa = str2NFA(re)
-        append(nfa.toGraphviz())
+        append(nfa.toGraphviz(re))
         val dfa = nfa2dfa(nfa)
-        append(dfa.toGraphviz())
+        append(dfa.toGraphviz(re, true))
+
     }.copyToClip()
 }
 
