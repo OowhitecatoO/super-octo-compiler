@@ -1,16 +1,31 @@
 package io.github.oowhitecatoo.superoctocompiler
 
+import com.xenomachina.argparser.ArgParser
+import com.xenomachina.argparser.InvalidArgumentException
+import com.xenomachina.argparser.default
+import com.xenomachina.argparser.mainBody
 import io.github.oowhitecatoo.superoctocompiler.re.regex2dfa
+import java.io.File
 
-fun main(args: Array<String>) {
+class MainCommand(parser: ArgParser) {
+    val source by parser.adding("-f", "--file", help = "source file", transform = ::File)
+        .default(emptyList<File>())
+        .addValidator { value.find { !it.exists() }?.run { throw InvalidArgumentException("${this.name} not exists") } }
 
-    if (args.isEmpty()) return println("show help")
-    when (args[0]) {
-        "nfa2dfa" -> {
-            regex2dfa("a(1(cde)*|2(cde)*)")
-//            nfa2dfa(args[1])
-        }
+    val regex2dfa by parser.storing("-r", "--regexTodfa", help = "").default<String?>(null)
+}
+
+fun main(args: Array<String>): Unit = mainBody {
+
+    val config = ArgParser(args.ifEmpty { arrayOf("--help") }).parseInto(::MainCommand)
+
+    config.regex2dfa?.also { regexString ->
+        regex2dfa(regexString)
     }
 
+    if (config.source.isNotEmpty()) {
+        val text = config.source.map { it.readText() }
+
+    }
 
 }
